@@ -1,9 +1,10 @@
 <html>
   <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
       google.charts.load('current', {packages: ['corechart', 'line']});
-google.charts.setOnLoadCallback(drawBackgroundColor);
+      google.charts.setOnLoadCallback(drawBackgroundColor);
 
 function drawBackgroundColor() {
       var data = new google.visualization.DataTable();
@@ -29,11 +30,34 @@ function drawBackgroundColor() {
 
       var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
       chart.draw(data, options);
+    } 
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var opt = { sendMethod: 'xhr' }; 
+        var query = new google.visualization.Query('http://localhost:6572/data.csv');
+        query.setQuery('select *');
+        query.send(handleQueryResponse);
+    }
+
+    function handleQueryResponse(response) {
+        if (response.isError()) {
+            alert('Error in query: ' + response.getMessage() + ' ' +
+                    response.getDetailedMessage());
+            return;
+        }
+
+        var data = response.getDataTable();
+        var chart = new google.visualization.ColumnChart(document.getElementById('csv'));
+        chart.draw(data, { legend: { position: 'none'} });
     }  
+      
+      
     </script>
  </head>
   <body>
     <div id="chart_div" style="width: 900px; height: 500px"></div>
+    <div id="csv" style="width: 900px; height: 500px;"></div>
   </body>
 </html>
 
