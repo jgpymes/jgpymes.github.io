@@ -1,4 +1,6 @@
-google.charts.load('current', {packages: ['corechart', 'line']});
+<html>
+  <head>
+      google.charts.load('current', {packages: ['corechart', 'line']});
 google.charts.setOnLoadCallback(drawBackgroundColor);
 
 function drawBackgroundColor() {
@@ -25,4 +27,11 @@ function drawBackgroundColor() {
 
       var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
       chart.draw(data, options);
-    }
+    }  
+ </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px"></div>
+  </body>
+</html>
+
+      
