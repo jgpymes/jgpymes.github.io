@@ -34,8 +34,8 @@ function drawBackgroundColor() {
     google.load("visualization", "1", { packages: ["corechart"] });
     google.setOnLoadCallback(drawChart);
     function drawChart() {
-        var opt = { sendMethod: 'xhr' }; 
-        var query = new google.visualization.Query('https://raw.githack.com/jgpymes/jgpymes.github.io/0974fb73d65553912950e53156e7825d8548d6de/data.csv');
+        var opt = { sendMethod: 'xhr', csvHasHeader: false  }; 
+        var query = new google.visualization.Query('https://raw.githack.com/jgpymes/jgpymes.github.io/0974fb73d65553912950e53156e7825d8548d6de/data.csv', opt);
         query.setQuery('select *');
         query.send(handleQueryResponse);
     }
